@@ -29,6 +29,18 @@ my $tm2 = DateTime->new(
   time_zone => 'EST'
 );
 
+my $tm3 = DateTime->new(
+  year      => 2008,
+  month     => 3,
+  day       => 1,
+  hour      => 9,
+  minute    => 11,
+  second    => 13,
+  nanosecond => 987654321,
+  time_zone => 'UTC'
+);
+
+
 my $source = do { local $/; <DATA> };
 
 {
@@ -48,12 +60,17 @@ my $source = do { local $/; <DATA> };
       lat  => 12.909038,
       lon  => 0.91823,
       time => $tm2->epoch,
+    },
+    {
+      lat  => 12.909038,
+      lon  => 10.91823,
+      time => $tm3,
     }
   );
   my @xtm    = xtm( $gpx->xml );
   my $expect = [
-    '2009-05-05T16:12:47+00:00', '2008-03-01T09:11:13-05:00',
-    '2008-03-01T14:11:13+00:00'
+    '2009-05-05T16:12:47.000+00:00', '2008-03-01T09:11:13.000-05:00',
+    '2008-03-01T14:11:13.000+00:00', '2008-03-01T09:11:13.987+00:00'
   ];
 
   unless ( is_deeply \@xtm, $expect, "times" ) {

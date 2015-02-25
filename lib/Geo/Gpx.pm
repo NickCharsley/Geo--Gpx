@@ -17,7 +17,7 @@ Geo::Gpx - Create and parse GPX files.
 
 =head1 VERSION
 
-This document describes Geo::Gpx version 0.27
+This document describes Geo::Gpx version 0.28
 
 =head1 SYNOPSIS
 
@@ -51,7 +51,7 @@ been extended to support general parsing and generation of GPX data. GPX
 =cut
 
 use vars qw ($VERSION);
-$VERSION = '0.27';
+$VERSION = '0.28';
 
 # Values that are encoded as attributes
 my %AS_ATTR = (
@@ -124,7 +124,7 @@ sub _format_time {
   my $ts = $tm->strftime(
     $legacy
     ? '%Y-%m-%dT%H:%M:%S.%7N%z'
-    : '%Y-%m-%dT%H:%M:%S%z'
+    : '%Y-%m-%dT%H:%M:%S.%3N%z'
   );
   $ts =~ s/(\d{2})$/:$1/;
   return $ts;
